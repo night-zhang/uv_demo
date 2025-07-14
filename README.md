@@ -20,7 +20,10 @@ uv venv
 
 # 运行
 ## uv运行
+```shell
 uv run uvicorn main:app --reload
+```
+
 
 
 ## pycharm设置运行
@@ -54,6 +57,8 @@ uv run uvicorn main:app --reload
 
 
 ## 手动激活虚拟环境运行（不推荐）
-- source .venv/bin/activate
-- uvicorn main:app --reload
 
+```shell
+source .venv/bin/activate
+uvicorn main:app --reload
+```
