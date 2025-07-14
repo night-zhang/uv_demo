@@ -12,7 +12,6 @@ uv -V
 ```
 
 # 同步虚拟环境
-- 进行项目，执行
 ```shell
 uv venv
 ```
@@ -21,7 +20,7 @@ uv venv
 # 运行
 ## uv运行
 ```shell
-uv run uvicorn main:app --reload
+uv run uvicorn main:app --reload --port=8080
 ```
 
 
@@ -30,6 +29,7 @@ uv run uvicorn main:app --reload
 - 编辑运行配置
 - 添加fastapi配置
 - 选中main.py
+- 额外参数填：`--reload --port=8080`
 
 ## vscode设置运行
 - 创建.vscode/launch.json（没有则手动创建）
@@ -46,6 +46,7 @@ uv run uvicorn main:app --reload
       "args": [
         "main:app",          // "模块名:FastAPI实例名"
         "--reload"           // 开发模式自动重载
+        "--port=8080"
       ],
       "console": "integratedTerminal",
       "justMyCode": true
@@ -60,5 +61,5 @@ uv run uvicorn main:app --reload
 
 ```shell
 source .venv/bin/activate
-uvicorn main:app --reload
+uvicorn main:app --reload --port=8080
 ```

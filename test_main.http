@@ -1,16 +1,26 @@
 # Test your FastAPI endpoints
+@hostname = 127.0.0.1
+@port = 8080
+@host = {{hostname}}:{{port}}
 
-GET http://127.0.0.1:8000/
+
+GET http://{{host}}
 Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/items/1?q=test_query
+GET http://{{host}}/items/1?q=test_query
 Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/docs
+GET http://{{host}}/run_state
+Accept: application/json
+
+###
+
+
+GET http://{{host}}/resources/path/file_test?key1=111&key2=222
 Accept: application/json
 
 ###

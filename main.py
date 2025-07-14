@@ -1,5 +1,5 @@
 from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 
 from config import settings
@@ -18,6 +18,29 @@ class Item(BaseModel):
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
+
+@app.get("/run_state")
+async def run_state():
+    return {"Server state": "Running"}
+
+@app.get("/resources/path/{file}")
+@app.post("/resources/path/{file}")
+@app.put("/resources/path/{file}")
+@app.delete("/resources/path/{file}")
+async def http_url(*, request: Request, key1, key2):
+    response = {
+        "协议名称": request.url.scheme,
+        "主机名": request.url.hostname,
+        "端口": request.url.port,
+        "资源路径": request.url.path,
+        "参数": request.url.query,
+        "key1的值": key1,
+        "key2的值": key2,
+        "请求头部": request.headers,
+        "请求体": await request.body(),
+    }
+    return response
 
 
 @app.get("/items/{item_id}")

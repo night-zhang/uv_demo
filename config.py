@@ -6,6 +6,6 @@ class Settings(BaseSettings):
     TESTING: bool = False
 
     class Config:
-        env_file = (".env", ".env.test", ".env.prod")
+        env_file = (".env", ".env.local", ".env.test", ".env.prod")
 
 settings = Settings()
