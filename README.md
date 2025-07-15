@@ -45,7 +45,7 @@ uv run uvicorn main:app --reload --port=8080
       "module": "uvicorn",  // <-- 使用模块启动
       "args": [
         "main:app",          // "模块名:FastAPI实例名"
-        "--reload"           // 开发模式自动重载
+        "--reload",           // 开发模式自动重载
         "--port=8080"
       ],
       "console": "integratedTerminal",
