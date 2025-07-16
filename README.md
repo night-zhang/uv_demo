@@ -13,7 +13,7 @@ uv -V
 
 # 同步虚拟环境
 ```shell
-uv venv
+uv sync
 ```
 
 
