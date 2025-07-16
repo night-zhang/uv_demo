@@ -60,6 +60,9 @@ uv run uvicorn main:app --reload --port=8080
 ## 手动激活虚拟环境运行（不推荐）
 
 ```shell
+# Linux下激活虚拟环境
 source .venv/bin/activate
+# windows下激活虚拟环境
+.venv\Scripts\activate
 uvicorn main:app --reload --port=8080
 ```

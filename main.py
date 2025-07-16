@@ -3,10 +3,30 @@ from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 
 from config import settings
+from src.router import web_router
+from src.middleware import my_middleware
 
 app = FastAPI(
     debug=settings.DEBUG,
 )
+
+app.include_router(web_router)
+
+my_middleware(app)
+
+# @app.middleware("http")
+# async def only_for_request(request: Request, call_next):
+#     print(f"Request URL: {request.url}")
+#     response: Response = await call_next(request)
+#     return response
+
+
+# @app.middleware("http")
+# async def only_for_response(request: Request, call_next):
+#     response: Response = await call_next(request)
+#     print(f"Response headers: {response.headers}")
+#     return response
+
 
 
 class Item(BaseModel):
