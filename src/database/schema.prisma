@@ -1,0 +1,21 @@
+generator client {
+  provider  = "prisma-client-py"
+  interface = "asyncio"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id                 Int @id @default(autoincrement())
+  username           String?
+  password           String?
+  is_valid           Boolean @default(true)
+  created_time       DateTime @default(now())
+  updated_time       DateTime @updatedAt
+
+  @@map("user")
+}

@@ -16,11 +16,17 @@ uv -V
 uv sync
 ```
 
-# 迁移数据库
+
+# 数据库迁移
 ```shell
+# Linux下激活虚拟环境
+source .venv/bin/activate
+# windows下激活虚拟环境
+.venv\Scripts\activate
 # prisma db push的命令默认只会去.env中获取数据库的配置，改为去basesting里获取
 python -m scripts.prisma_push
 ```
+
 
 
 # 运行
@@ -71,4 +77,14 @@ source .venv/bin/activate
 # windows下激活虚拟环境
 .venv\Scripts\activate
 uvicorn main:app --reload --port=8080
+```
+
+
+# 其它
+生成秘钥
+```shell
+python -c "import secrets; print(secrets.token_urlsafe(32))"
+
+# 或者
+openssl rand -hex 32
 ```
