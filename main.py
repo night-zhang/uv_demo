@@ -2,12 +2,12 @@ from typing import Union
 from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 
-from config import settings
+from config import cfg
 from src.router import web_router
 from src.middleware import my_middleware
 
 app = FastAPI(
-    debug=settings.DEBUG,
+    debug=cfg.DEBUG,
 )
 
 app.include_router(web_router)

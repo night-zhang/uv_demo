@@ -16,6 +16,12 @@ uv -V
 uv sync
 ```
 
+# 迁移数据库
+```shell
+# prisma db push的命令默认只会去.env中获取数据库的配置，改为去basesting里获取
+python -m scripts.prisma_push
+```
+
 
 # 运行
 ## uv运行
