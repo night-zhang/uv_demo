@@ -13,6 +13,8 @@ uv -V
 
 # 同步虚拟环境
 ```shell
+uv venv .venv
+uv pip install --upgrade pip
 uv sync
 ```
 
@@ -81,10 +83,23 @@ uvicorn main:app --reload --port=8080
 
 
 # 其它
-生成秘钥
+## 生成秘钥
 ```shell
 python -c "import secrets; print(secrets.token_urlsafe(32))"
 
 # 或者
 openssl rand -hex 32
 ```
+
+
+
+## UUID vs 自增 ID 的对比
+| 维度            | 自增 ID（int）                 | UUID（str/uuid）            |
+| ------------- | -------------------------- | ------------------------- |
+| **可读性**       | ✅ 数字清晰、短                   | ❌ 不可读，长度长                 |
+| **空间占用**      | ✅ 4 or 8 bytes（int）        | ❌ 16 bytes（uuid）          |
+| **排序效率**      | ✅ 自然有序、索引友好                | ❌ 无序、插入时随机（除非用 UUIDv1/v7） |
+| **多服务分布式创建**  | ❌ 需要协调（比如 Snowflake、DB 自增） | ✅ 可本地生成，无冲突               |
+| **安全性（防推测）**  | ❌ 可猜测下一条记录                 | ✅ 不可预测                    |
+| **数据迁移稳定性**   | ❌ 容易冲突                     | ✅ UUID 唯一性强               |
+| **用作 URL 参数** | ❌ 易被遍历                     | ✅ 更安全，不易穷举                |

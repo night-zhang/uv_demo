@@ -8,14 +8,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id                 Int @id @default(autoincrement())
-  username           String?
-  password           String?
-  is_valid           Boolean @default(true)
-  created_time       DateTime @default(now())
-  updated_time       DateTime @updatedAt
+  id           String   @id @default(uuid()) @db.Uuid
+  username     String?
+  password     String?
+  is_valid     Boolean  @default(true)
+  created_time DateTime @default(now())
+  updated_time DateTime @updatedAt
 
   @@map("user")
 }
