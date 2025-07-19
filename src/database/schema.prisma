@@ -9,12 +9,73 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid()) @db.Uuid
-  username     String?
+  id           String         @id @default(uuid()) @db.Uuid
+  account      String         @unique
+  name         String?
+  email        String         @unique
+  alias        String?
   password     String?
+  remarks      String?
+  is_valid     Boolean        @default(true)
+  created_time DateTime       @default(now())
+  updated_time DateTime       @updatedAt
+  groups       UserOnGroups[]  // explicit many-to-many
+  roles        Role[]         @relation("user_to_roles")  // Implicit many-to-many
+
+  @@index([account])
+  @@index([email])
+  @@map("user")
+}
+
+model Group {
+  id           String         @id @default(uuid()) @db.Uuid
+  name         String
+  alias        String?
+  remarks      String?
+  parent_id    String?        @db.Uuid
+  parent       Group?         @relation("GroupToParent", fields: [parent_id], references: [id])
+  children     Group[]        @relation("GroupToParent")
+  users        UserOnGroups[]
+  is_valid     Boolean        @default(true)
+  created_time DateTime       @default(now())
+  updated_time DateTime       @updatedAt
+
+  @@index([name])
+  @@map("group")
+}
+
+model UserOnGroups {
+  user          User     @relation(fields: [user_id], references: [id])
+  user_id       String   @db.Uuid
+  group         Group    @relation(fields: [group_id], references: [id])
+  group_id      String   @db.Uuid
+  assigned_time DateTime @default(now())
+  assigned_by   String
+
+  @@id([user_id, group_id])
+}
+
+model Role {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @unique
+  remarks      String?
+  is_valid     Boolean  @default(true)
+  created_time DateTime @default(now())
+  updated_time DateTime @updatedAt
+  users        User[]   @relation("user_to_roles")
+
+  @@index([name])
+  @@map("role")
+}
+
+model Permission {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @unique
+  remarks      String?
   is_valid     Boolean  @default(true)
   created_time DateTime @default(now())
   updated_time DateTime @updatedAt
 
-  @@map("user")
+  @@index([name])
+  @@map("permission")
 }
