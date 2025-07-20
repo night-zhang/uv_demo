@@ -8,23 +8,24 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # 函数式的中间件写法
 def my_middleware(app: FastAPI):
-    @app.middleware("http")
-    async def count_time(request: Request, call_next):
-        start_time = time.time()
-        response = await call_next(request)
-        duration = time.time() - start_time
-        response.headers["X-Response-Time"] = str(duration)
-        print(f"Request URL: {request.url}, Duration: {duration:.4f} seconds")
-        return response
+    # @app.middleware("http")
+    # async def count_time(request: Request, call_next):
+    #     start_time = time.time()
+    #     response = await call_next(request)
+    #     duration = time.time() - start_time
+    #     response.headers["X-Response-Time"] = str(duration)
+    #     print(f"Request URL: {request.url}, Duration: {duration:.4f} seconds")
+    #     return response
     
-    @app.middleware("http")
-    async def log_request(request: Request, call_next):
-        print(f"Request method: {request.method}, URL: {request.url}")
-        response = await call_next(request)
-        print(f"Response status code: {response.status_code}")
-        return response
+    # @app.middleware("http")
+    # async def log_request(request: Request, call_next):
+    #     print(f"Request method: {request.method}, URL: {request.url}")
+    #     response = await call_next(request)
+    #     print(f"Response status code: {response.status_code}")
+    #     return response
     
-    app.add_middleware(RateLimitMiddleware)
+    # app.add_middleware(RateLimitMiddleware)
+    
     # 处理跨域问题，注意这么设置不一定安全，生产环境中需要更严格的设置
     app.add_middleware(
         CORSMiddleware,
